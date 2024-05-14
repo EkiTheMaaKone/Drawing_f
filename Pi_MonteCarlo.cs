@@ -22,73 +22,50 @@ namespace Drawing_f
         }
         public double numPoints = 0;
         public double inCircle = 0;
-        public Point originPoint = new Point(0, 0);
+        public int accVar = 50;
+        Random rnd = new Random();
         
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            drawPoint(rnd.Next(0,500 * accVar), rnd.Next(0, 500 * accVar));
-            update_labels();
-            drawFirstCircle();
+            generatePoints(1);
         }
         
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            drawFirstCircle();
-            Random rnd = new Random();
-            for (int i = 0; i < 10; i++)
-            {
-                drawPoint(rnd.Next(0, 500 * accVar), rnd.Next(0, 500 * accVar));
-            }
-            update_labels();
+            generatePoints(10);
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            drawFirstCircle();
-            Random rnd = new Random();
-            for (int i = 0; i < 100; i++)
-            {
-                drawPoint(rnd.Next(0, 500 * accVar), rnd.Next(0, 500 * accVar));
-            }
-            update_labels();
+            generatePoints(100);
         }
 
 
         private void button3_Click(object sender, EventArgs e)
         {
-            drawFirstCircle();
-            Random rnd = new Random();
-            for (int i = 0; i < 1000; i++)
-            {
-                drawPoint(rnd.Next(0, 500 * accVar), rnd.Next(0, 500 * accVar));
-            }
-            update_labels();
+            generatePoints(1000);
         }
 
 
         private void button4_Click(object sender, EventArgs e)
         {
-            drawFirstCircle();
-            Random rnd = new Random();
-            for (int i = 0; i < numericUpDown1.Value; i++)
-            {
-                drawPoint(rnd.Next(0, 500*accVar), rnd.Next(0, 500*accVar));
-            }
-            update_labels();
+            generatePoints(Convert.ToInt32(numericUpDown1.Value));
+            
         }
-        public int accVar=50;
+        
 
         //Non form functions-------------------------------------------------------------------------
-        private void drawFirstCircle()
+        public void generatePoints(int numOfPointsToGen)
         {
-            Graphics g = Graphics.FromHwnd(PiBox.Handle);
-            Pen penOn = new Pen(Color.Red);
-            //g.DrawEllipse(penOn, -500, -500, 1000, 1000);
-            g.Dispose();
+            
+            for (int i = 0; i < numOfPointsToGen; i++)
+            {
+                drawPoint(rnd.Next(0, 500 * accVar), rnd.Next(0, 500 * accVar));
+            }
+            update_labels();
         }
         public void drawPoint(int x, int y)
         {
@@ -109,7 +86,6 @@ namespace Drawing_f
         private void update_labels()
         {
             label4.Text = String.Format("{0} out of {1} points are inside the circle",(inCircle).ToString("0"), (numPoints).ToString("0"));
-            //label2.Text = (numPoints).ToString("0.");
             label1.Text = "Approximation of Pi is Currently:" + ((inCircle / numPoints) * 4).ToString("0.######");
         }
 
