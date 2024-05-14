@@ -20,12 +20,20 @@ namespace Drawing_f
             this.MinimizeBox = false;
             
         }
+        //Total number of points
         public double numPoints = 0;
-        public double inCircle = 0;
-        public int accVar = 50;
-        Random rnd = new Random();
         
+        public double inCircle = 0;//Total number of points inside the circle
 
+        
+        public int accVar = 50;//The accuracy variable determines how large the
+                               //domain is for the randomly generated numbers
+                                //Since ints are used the larges the circle, the less likely a random point is to be 
+                                //misidentified as being inside the circle.
+
+        Random rnd = new Random(); //Random number engine
+
+        //These button click functions call for a specified number of points to be generated
         private void button1_Click(object sender, EventArgs e)
         {
             generatePoints(1);
@@ -58,6 +66,8 @@ namespace Drawing_f
         
 
         //Non form functions-------------------------------------------------------------------------
+
+        //Draws a specified amount of points by calling drawpoint function
         public void generatePoints(int numOfPointsToGen)
         {
             
@@ -67,6 +77,9 @@ namespace Drawing_f
             }
             update_labels();
         }
+
+
+        //Draws a specified point onto the PiBox and updates the running counts of numPoints and inCircle
         public void drawPoint(int x, int y)
         {
             Graphics g = Graphics.FromHwnd(PiBox.Handle);
@@ -83,6 +96,7 @@ namespace Drawing_f
             g.Dispose();
         }
 
+        //updates the labels
         private void update_labels()
         {
             label4.Text = String.Format("{0} out of {1} points are inside the circle",(inCircle).ToString("0"), (numPoints).ToString("0"));
